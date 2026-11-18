@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetainIQ - Predictive Employee Attrition & Workforce Intelligence Platform</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- App Header with Modern Enterprise Branding & Dark/Light Mode Switcher -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-section">
+        <div class="brand-logo">⚡</div>
+        <div>
+          <div class="brand-title">
+            RetainIQ
+            <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 9999px; background: var(--bg-accent); color: var(--brand-primary); border: 1px solid var(--border-active);">v2.4 Enterprise</span>
+          </div>
+          <div class="brand-subtitle">Predictive Workforce Attrition & Retention Risk Intelligence Platform</div>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="header-badge">
+          <span class="status-dot"></span> 100% Offline & Self-Contained
+        </span>
+        <span class="header-badge highlight">
+          ⚡ 4 Supervised + 1 Unsupervised ML Active
+        </span>
+        <button id="theme_toggle_btn" class="theme-toggle-btn" title="Toggle Light / Dark Mode">
+          <span id="theme_icon">🌙</span> <span id="theme_label">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modern Segmented Navigation Tabs -->
+    <nav class="nav-container">
+      <button class="nav-tab active" data-tab="attrition_predictor">
+        <span>⚡</span> Attrition Predictor
+      </button>
+      <button class="nav-tab" data-tab="model_governance">
+        <span>📊</span> Model Governance
+      </button>
+      <button class="nav-tab" data-tab="risk_segmentation">
+        <span>🎯</span> Risk Segmentation
+      </button>
+      <button class="nav-tab" data-tab="data_explorer">
+        <span>📁</span> Data Explorer
+      </button>
+      <button class="nav-tab" data-tab="workforce_simulator">
+        <span>💼</span> Portfolio Simulator
+      </button>
+      <button class="nav-tab" data-tab="governance_rules">
+        <span>📜</span> Underwriting Rules
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="app-main">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: ATTRITION PREDICTOR (Interactive Risk Calculator)                  -->
+    <!-- ========================================================================= -->
+    <section id="attrition_predictor" class="tab-pane active">
+      
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>⚡</span> Interactive Employee Flight Risk Underwriting Calculator</h2>
+          <p>Real-time inference using Gradient Boosting (GBM Primary), Random Forest, MLP Neural Network, and SVM with 95% confidence intervals and K-Means risk cohort mapping.</p>
+        </div>
+        <div class="presets-bar">
+          <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Quick Presets:</span>
+          <button class="preset-btn active" data-preset="preset_overworked">Mid-Age Overworked Non-Manager</button>
+          <button class="preset-btn" data-preset="preset_low_risk">Standard Low Risk</button>
+          <button class="preset-btn" data-preset="preset_senior">Senior Executive</button>
+          <button class="preset-btn" data-preset="preset_critical_flight">Critical Flight Risk (Sales)</button>
+        </div>
+      </div>
+
+      <div class="grid-two-column">
+        
+        <!-- Left: Input Profile Attributes -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span>📋</span> Employee Risk Attributes</div>
+            <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Inputs Vector: 19 Features</span>
+          </div>
+          <div class="card-body">
+            
+            <!-- Age Slider -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label">Employee Age</label>
+                <span id="badge_age" class="form-val-badge">32 yrs · Mid Career</span>
+              </div>
+              <input type="range" id="input_age" class="form-range" min="18" max="60" value="32">
+            </div>
+
+            <!-- Monthly Income Slider -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label">Monthly Compensation</label>
+                <span id="badge_income" class="form-val-badge">₹2,90,500 /mo (Entry)</span>
+              </div>
+              <input type="range" id="input_income" class="form-range" min="1200" max="20000" step="100" value="3500">
+            </div>
+
+            <!-- Total Working Years & Company Tenure -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <div class="form-label-row">
+                  <label class="form-label">Total Experience</label>
+                  <span id="badge_total_years" class="form-val-badge">8 yrs total</span>
+                </div>
+                <input type="range" id="input_total_years" class="form-range" min="0" max="40" value="8">
+              </div>
+
+              <div class="form-group">
+                <div class="form-label-row">
+                  <label class="form-label">Tenure at Company</label>
+                  <span id="badge_company_years" class="form-val-badge">3 yrs</span>
+                </div>
+                <input type="range" id="input_company_years" class="form-range" min="0" max="35" value="3">
+              </div>
+            </div>
+
+            <!-- Overtime Schedule (Critical Actuarial Driver) -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label">Overtime Schedule <span style="color: var(--tier-crit-color); font-size: 11px;">(Fatigue Driver)</span></label>
+              </div>
+              <div id="seg_overtime" class="segmented-control">
+                <button class="segmented-btn no-state" data-val="No">No Overtime</button>
+                <button class="segmented-btn yes-state active" data-val="Yes">Regular Overtime (Yes)</button>
+              </div>
+            </div>
+
+            <!-- Job Satisfaction (1 to 4) -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label">Job Satisfaction Level</label>
+              </div>
+              <div id="seg_satisfaction" class="segmented-control">
+                <button class="segmented-btn" data-val="1">1 - Very Low</button>
+                <button class="segmented-btn active" data-val="2">2 - Low</button>
+                <button class="segmented-btn" data-val="3">3 - High</button>
+                <button class="segmented-btn" data-val="4">4 - Very High</button>
+              </div>
+            </div>
+
+            <!-- Work-Life Balance (1 to 4) -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label">Work-Life Balance Rating</label>
+              </div>
+              <div id="seg_worklife" class="segmented-control">
+                <button class="segmented-btn" data-val="1">1 - Bad</button>
+                <button class="segmented-btn active" data-val="2">2 - Average</button>
+                <button class="segmented-btn" data-val="3">3 - Good</button>
+                <button class="segmented-btn" data-val="4">4 - Best</button>
+              </div>
+            </div>
+
+            <!-- Department & Role Selection -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px;">
+              <div>
+                <label class="form-label" style="display: block; margin-bottom: 6px;">Department</label>
+                <select id="select_department" class="form-select">
+                  <option value="Sales" selected>Sales</option>
+                  <option value="Research & Development">Research & Development</option>
+                  <option value="Human Resources">Human Resources</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; margin-bottom: 6px;">Job Role</label>
+                <select id="select_job_role" class="form-select">
+                  <option value="Sales Executive" selected>Sales Executive</option>
+                  <option value="Research Scientist">Research Scientist</option>
+                  <option value="Laboratory Technician">Laboratory Technician</option>
+                  <option value="Software Engineer">Software Engineer</option>
+                  <option value="Sales Representative">Sales Representative</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Manufacturing Director">Manufacturing Director</option>
+                  <option value="Healthcare Representative">Healthcare Representative</option>
+                  <option value="Human Resources">HR Specialist</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Marital Status & Stock Options -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px;">
+              <div>
+                <label class="form-label" style="display: block; margin-bottom: 6px;">Marital Status</label>
+                <div id="seg_marital" class="segmented-control">
+                  <button class="segmented-btn active" data-val="Single">Single</button>
+                  <button class="segmented-btn" data-val="Married">Married</button>
+                  <button class="segmented-btn" data-val="Divorced">Divorced</button>
+                </div>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; margin-bottom: 6px;">Stock Options Level</label>
+                <div id="seg_stock" class="segmented-control">
+                  <button class="segmented-btn active" data-val="0">0</button>
+                  <button class="segmented-btn" data-val="1">1</button>
+                  <button class="segmented-btn" data-val="2">2</button>
+                  <button class="segmented-btn" data-val="3">3</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Commute Distance Slider -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label">Distance From Residence</label>
+                <span id="badge_distance" class="form-val-badge">12 km commute</span>
+              </div>
+              <input type="range" id="input_distance" class="form-range" min="1" max="30" value="12">
+            </div>
+
+            <!-- Action Button -->
+            <button id="btn_execute_prediction" class="btn-primary-action">
+              <span>⚡ Execute Real-Time Attrition Evaluation</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Right: Real-Time Prediction & Governance Output -->
+        <div>
+          
+          <!-- Hero Output Card -->
+          <div class="hero-pred-card critical-risk">
+            <div class="hero-header">
+              <div>
+                <div class="hero-label">Production Attrition Probability (Gradient Boosting Primary)</div>
+                <div class="hero-val-row">
+                  <span id="hero_pred_value" class="hero-val-big">74.2%</span>
+                  <span class="hero-val-unit">Probability of Annual Turnover</span>
+                </div>
+              </div>
+              <div id="hero_tier_badge" class="hero-tier-badge tier-critical">
+                Tier 3 - Critical Flight Risk
+              </div>
+            </div>
+
+            <!-- 95% Quantile Confidence Interval -->
+            <div class="ci-container">
+              <div class="ci-header">
+                <span>95% Double-Quantile Confidence Interval</span>
+                <span id="ci_text" style="font-family: var(--font-mono); color: var(--brand-primary);">[64.5% — 82.8%]</span>
+              </div>
+              <div class="ci-track">
+                <div id="ci_range_bar" class="ci-range-bar" style="left: 64.5%; width: 18.3%;"></div>
+                <div id="ci_marker" class="ci-marker" style="left: 74.2%;"></div>
+              </div>
+              <div id="ci_bounds" class="ci-bounds-labels">
+                <span>5th Percentile: 64.5%</span>
+                <span>Expected: 74.2%</span>
+                <span>95th Percentile: 82.8%</span>
+              </div>
+            </div>
+
+            <!-- Sub-metrics Grid -->
+            <div class="sub-metrics-grid">
+              <div class="sub-metric-card">
+                <div class="sub-metric-label">Replacement Liability</div>
+                <div id="sub_metric_cost" class="sub-metric-value">₹5,22,900</div>
+              </div>
+              <div class="sub-metric-card">
+                <div class="sub-metric-label">Relative Risk Multiplier</div>
+                <div id="sub_metric_multiplier" class="sub-metric-value danger">4.61x Baseline</div>
+              </div>
+              <div class="sub-metric-card">
+                <div class="sub-metric-label">Retention Urgency</div>
+                <div id="sub_metric_urgency" class="sub-metric-value danger">URGENT ACTION</div>
+              </div>
+              <div class="sub-metric-card">
+                <div class="sub-metric-label">K-Means Cohort</div>
+                <div id="sub_metric_cohort" class="sub-metric-value">Tier 3 (Burnout)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cross-Algorithm Comparison Card (Minimum 3, we show 4 advanced algorithms) -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><span>⚡</span> Cross-Algorithm Attrition Predictions</div>
+              <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">Ensemble Validation Across 4 Architectures</span>
+            </div>
+            <div class="card-body" style="padding-top: 10px;">
+              <div class="cross-algo-grid">
+                
+                <div class="algo-col-card primary">
+                  <span class="algo-badge-tag">Production</span>
+                  <div class="algo-col-title">Gradient Boosting</div>
+                  <div id="pred_gbm" class="algo-col-pred">74.2%</div>
+                  <div class="algo-col-sub">Log-Loss Minimizer</div>
+                </div>
+
+                <div class="algo-col-card">
+                  <div class="algo-col-title">Random Forest</div>
+                  <div id="pred_rf" class="algo-col-pred">71.8%</div>
+                  <div class="algo-col-sub">Bagged Gini Trees</div>
+                </div>
+
+                <div class="algo-col-card">
+                  <div class="algo-col-title">MLP Neural Net</div>
+                  <div id="pred_mlp" class="algo-col-pred">76.4%</div>
+                  <div class="algo-col-sub">Dense Backprop Net</div>
+                </div>
+
+                <div class="algo-col-card">
+                  <div class="algo-col-title">Support Vector Machine</div>
+                  <div id="pred_svm" class="algo-col-pred">69.5%</div>
+                  <div class="algo-col-sub">RBF Non-Linear Kernel</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Local Feature Impact Attribution (SHAP Waterfall Style) -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><span>📊</span> Feature Impact Attribution (Local Sensitivity)</div>
+              <span style="font-size: 11px; color: var(--text-muted);">Marginal Probability Elasticity</span>
+            </div>
+            <div class="card-body">
+              <div id="attribution_list" class="attr-list">
+                <!-- Dynamically filled by app.js -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: MODEL GOVERNANCE & BENCHMARK COMPARISON                           -->
+    <!-- ========================================================================= -->
+    <section id="model_governance" class="tab-pane">
+      
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>📊</span> Actuarial Model Governance & Benchmark Comparison</h2>
+          <p>Empirical evaluation of 4 supervised statistical models and 1 unsupervised clustering model trained on 1,470 real-world benchmark observations.</p>
+        </div>
+      </div>
+
+      <!-- Governance Metrics Grid -->
+      <div class="gov-metrics-grid">
+        <div id="gov_gbm" class="gov-card highlight"></div>
+        <div id="gov_rf" class="gov-card"></div>
+        <div id="gov_mlp" class="gov-card"></div>
+        <div id="gov_svm" class="gov-card"></div>
+      </div>
+
+      <!-- Charts & Visuals Grid -->
+      <div class="gov-viz-grid">
+        
+        <!-- ROC Curves SVG Canvas -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span>📈</span> Receiver Operating Characteristic (ROC Curves)</div>
+            <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Test Set Evaluation (N=294)</span>
+          </div>
+          <div class="card-body">
+            <div id="roc_curve_canvas" class="chart-canvas-container"></div>
+          </div>
+        </div>
+
+        <!-- Confusion Matrix with Model Selector -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span>🎯</span> Confusion Matrix Analysis</div>
+            <div>
+              <select id="select_cm_model" class="form-select" style="padding: 4px 8px; font-size: 11px; width: 170px;">
+                <option value="gradient_boosting" selected>Gradient Boosting</option>
+                <option value="random_forest">Random Forest</option>
+                <option value="mlp_classifier">MLP Neural Net</option>
+                <option value="svm_classifier">SVM (RBF Kernel)</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="confusion_matrix_grid" class="cm-container"></div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 14px; text-align: center;">
+              Stratified Test Set (247 Retained, 47 Attrited). Precision, Recall, and ROC-AUC optimized for imbalanced attrition risk.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Global Feature Importance & Technical Justifications -->
+      <div class="grid-two-column">
+        
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span>📊</span> Global Feature Importance Decomposition</div>
+            <span style="font-size: 11px; color: var(--text-muted);">Gini Impurity / Loss Reduction</span>
+          </div>
+          <div class="card-body">
+            <div id="feature_importance_list"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span>⚖️</span> Actuarial Governance & Methodology Justification</div>
+            <span style="font-size: 11px; color: var(--text-muted);">Actuarial Risk Audit</span>
+          </div>
+          <div class="card-body" style="font-size: 12px; line-height: 1.6; color: var(--text-primary);">
+            <div style="margin-bottom: 14px;">
+              <strong>1. Rejection of Naive Linear Models:</strong>
+              <p style="color: var(--text-muted); margin-top: 4px;">
+                Simple linear regression or vanilla linear boundaries fail to capture severe non-linear comorbidity (e.g. the exponential flight spike when overtime intersects with below-median compensation). Tree ensembles and deep multi-layer networks accurately model these sharp threshold splits.
+              </p>
+            </div>
+            <div style="margin-bottom: 14px;">
+              <strong>2. Quantile Safety Reserve Sizing:</strong>
+              <p style="color: var(--text-muted); margin-top: 4px;">
+                In corporate workforce planning, predicting mean expected attrition is insufficient. The 95th percentile quantile upper-bound provides HR executives with a Value-at-Risk safety buffer for capital allocation and contingency hiring budgets.
+              </p>
+            </div>
+            <div>
+              <strong>3. Unsupervised Clustering Integration:</strong>
+              <p style="color: var(--text-muted); margin-top: 4px;">
+                K-Means unsupervised clustering operates orthogonally to the supervised classifiers, partitioning staff into 3 behavioral risk tiers for policy intervention without ground-truth label leakage.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: RISK SEGMENTATION (Unsupervised K-Means)                           -->
+    <!-- ========================================================================= -->
+    <section id="risk_segmentation" class="tab-pane">
+      
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>🎯</span> Unsupervised Risk Segmentation Engine (K-Means, K=3)</h2>
+          <p>Workforce clustering based on multidimensional feature geometry: compensation, tenure, overtime burden, and employee engagement.</p>
+        </div>
+        <div>
+          <span class="header-badge highlight">Total Analyzed: 1,470 Observations</span>
+        </div>
+      </div>
+
+      <!-- 3 Tier Cards -->
+      <div id="cluster_profiles_grid" class="cluster-tiers-grid"></div>
+
+      <!-- Interactive Scatter Matrix -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span>📈</span> Workforce Risk Scatter Matrix & Latent Cluster Projections</div>
+          <div style="display: flex; gap: 8px;">
+            <span style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 4px;">View:</span>
+            <button class="preset-btn scatter-toggle-btn active" data-view="income_tenure">Income vs. Tenure</button>
+            <button class="preset-btn scatter-toggle-btn" data-view="age_satisfaction">Age vs. Satisfaction</button>
+            <button class="preset-btn scatter-toggle-btn" data-view="pca">2D PCA Latent Space</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="scatter_plot_canvas" class="scatter-canvas"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: DATA EXPLORER (Real Offline Dataset & Tipping Point Matrix)         -->
+    <!-- ========================================================================= -->
+    <section id="data_explorer" class="tab-pane">
+      
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>📁</span> Workforce Dataset Explorer (1,470 Offline Records)</h2>
+          <p>Empirically calibrated to the real IBM HR Analytics benchmark dataset with complete distribution breakdowns.</p>
+        </div>
+        <div>
+          <button id="btn_open_survey_modal" class="preset-btn highlight" style="background: var(--brand-primary); color: white; border-color: var(--brand-primary);">
+            📋 Open Employee Survey / Google Form Data Collector
+          </button>
+        </div>
+      </div>
+
+      <!-- KPIs Row -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Observations</div>
+          <div id="kpi_total_records" class="kpi-value">1,470</div>
+          <div class="kpi-sub">Cleaned Benchmark Records</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Baseline Attrition Rate</div>
+          <div id="kpi_attrition_rate" class="kpi-value">16.1%</div>
+          <div class="kpi-sub">237 Exits / 1,233 Retained</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Mean Monthly Salary</div>
+          <div id="kpi_avg_salary" class="kpi-value">₹5,39,749</div>
+          <div class="kpi-sub">$6,503 USD Benchmark Mean</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Overtime Attrition Multiplier</div>
+          <div id="kpi_ot_multiplier" class="kpi-value" style="color: var(--tier-crit-color);">2.67x</div>
+          <div class="kpi-sub">Risk Ratio vs. Standard Hours</div>
+        </div>
+      </div>
+
+      <!-- Tipping Point Matrix (Inspired directly by the video reference's Smoking x BMI matrix) -->
+      <div class="tipping-matrix-card">
+        <div class="card-title" style="margin-bottom: 6px;">
+          <span>🔥</span> The "Overtime × Low Compensation" Attrition Tipping-Point Matrix
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted);">
+          Empirically observed risk acceleration when overtime fatigue intersects with below-median compensation tiers.
+        </p>
+
+        <div class="tipping-matrix-grid">
+          
+          <div class="cohort-subcard">
+            <div class="cohort-subcard-title">
+              <span style="color: var(--tier-low-color);">●</span> Standard Hours Cohort (No Overtime)
+            </div>
+            <div class="matrix-rate-row">
+              <span>Salary &lt; ₹2.9 Lakhs ($3,500)</span>
+              <span id="matrix_non_ot_low" class="matrix-rate-val">19.4%</span>
+            </div>
+            <div class="matrix-rate-row">
+              <span>Salary &ge; ₹2.9 Lakhs ($3,500)</span>
+              <span id="matrix_non_ot_high" class="matrix-rate-val" style="color: var(--tier-low-color);">8.2%</span>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">
+              Baseline stability: Employees with standard work hours exhibit modest mobility even at lower salary brackets.
+            </p>
+          </div>
+
+          <div class="cohort-subcard" style="border-color: var(--tier-crit-border); background: var(--tier-crit-bg);">
+            <div class="cohort-subcard-title">
+              <span style="color: var(--tier-crit-color);">●</span> Overtime Burden Cohort (High Overtime)
+            </div>
+            <div class="matrix-rate-row critical">
+              <span style="font-weight: 700;">Salary &lt; ₹2.9 Lakhs ($3,500) [Severe Spike]</span>
+              <span id="matrix_ot_low" class="matrix-rate-val" style="color: var(--tier-crit-color);">52.3%</span>
+            </div>
+            <div class="matrix-rate-row">
+              <span>Salary &ge; ₹2.9 Lakhs ($3,500)</span>
+              <span id="matrix_ot_high" class="matrix-rate-val" style="color: var(--tier-med-color);">23.8%</span>
+            </div>
+            <p style="font-size: 11px; color: var(--tier-crit-color); margin-top: 6px;">
+              Compounding Comorbidity: Fatigue combined with perceived undercompensation triggers an exponential 2.7x exit rate!
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Dataset Paginated Table -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span>📋</span> Real Dataset Records Preview</div>
+          <div class="table-filter-bar">
+            <input type="text" id="explorer_search" class="search-input" placeholder="Search by role, department, age...">
+            <div style="display: flex; gap: 4px;">
+              <button class="preset-btn table-filter-btn active" data-filter="all">All (1,470)</button>
+              <button class="preset-btn table-filter-btn" data-filter="Attrited">Attrited (237)</button>
+              <button class="preset-btn table-filter-btn" data-filter="Retained">Retained (1,233)</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" style="padding-top: 10px;">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Age</th>
+                  <th>Status</th>
+                  <th>Department</th>
+                  <th>Job Role</th>
+                  <th>Monthly Income</th>
+                  <th>Tenure</th>
+                  <th>Satisfaction</th>
+                  <th>Overtime</th>
+                  <th>Risk Tier</th>
+                </tr>
+              </thead>
+              <tbody id="explorer_table_body"></tbody>
+            </table>
+          </div>
+
+          <div class="pagination-bar">
+            <button id="btn_page_prev" class="btn-page">Previous</button>
+            <span id="explorer_page_label">Page 1 of 50</span>
+            <button id="btn_page_next" class="btn-page">Next</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 5: WORKFORCE SIMULATOR (Stress Testing)                               -->
+    <!-- ========================================================================= -->
+    <section id="workforce_simulator" class="tab-pane">
+      
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>💼</span> Workforce Portfolio Stress Testing & Retention Capital Simulator</h2>
+          <p>Simulate department cohorts to evaluate expected exits, financial replacement capital liabilities, and Value-at-Risk.</p>
+        </div>
+        <div>
+          <button id="btn_resimulate" class="preset-btn highlight" style="background: var(--brand-primary); color: white; border-color: var(--brand-primary);">
+            🔄 Regenerate & Re-simulate
+          </button>
+        </div>
+      </div>
+
+      <!-- Simulator Controls -->
+      <div class="sim-controls-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <div class="form-label" style="margin-bottom: 6px;">Select Cohort Scenario:</div>
+            <div class="sim-btn-row">
+              <button class="preset-btn sim-cohort-btn active" data-cohort="balanced">Balanced General Workforce</button>
+              <button class="preset-btn sim-cohort-btn" data-cohort="tech">High-Tech R&D Team</button>
+              <button class="preset-btn sim-cohort-btn" data-cohort="sales">High-Stress Sales Team</button>
+              <button class="preset-btn sim-cohort-btn" data-cohort="senior">Tenured Senior Leadership</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-label" style="margin-bottom: 6px;">Batch Sample Size:</div>
+            <div class="sim-btn-row">
+              <button class="preset-btn sim-batch-btn" data-batch="10">10 Staff</button>
+              <button class="preset-btn sim-batch-btn active" data-batch="25">25 Staff</button>
+              <button class="preset-btn sim-batch-btn" data-batch="50">50 Staff</button>
+              <button class="preset-btn sim-batch-btn" data-batch="100">100 Staff</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulation Summary KPIs -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">Expected Exits in Cohort</div>
+          <div id="sim_expected_exits" class="kpi-value danger">5 / 25 (20.0%)</div>
+          <div class="kpi-sub">Simulated Annual Turnover</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Replacement Capital Liability</div>
+          <div id="sim_capital_liability" class="kpi-value">₹24,80,000</div>
+          <div class="kpi-sub">Recruiting & Onboarding Cost (1.5x)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Critical Flight Concentration</div>
+          <div id="sim_critical_concentration" class="kpi-value warning">6 Staff (24.0%)</div>
+          <div class="kpi-sub">Probability &gt; 60% Severity</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Simulation Engine</div>
+          <div class="kpi-value" style="font-size: 20px; color: var(--brand-primary);">Monte Carlo</div>
+          <div class="kpi-sub">Bernoulli Trial Sampling</div>
+        </div>
+      </div>
+
+      <!-- Simulated Roster Table -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span>📋</span> Simulated Employee Ledger & Retention Action Items</div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Employee ID</th>
+                  <th>Job Role</th>
+                  <th>Demographics</th>
+                  <th>Monthly Salary</th>
+                  <th>Overtime</th>
+                  <th>Predicted Risk</th>
+                  <th>Simulation Status</th>
+                  <th>Prescribed Retention Intervention</th>
+                </tr>
+              </thead>
+              <tbody id="sim_roster_body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 6: HR GOVERNANCE & MATHEMATICAL LOSS SPECIFICATIONS                   -->
+    <!-- ========================================================================= -->
+    <section id="governance_rules" class="tab-pane">
+      
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>📜</span> Illustrative Retention Guidelines & Governance Framework</h2>
+          <p>Standardized operational protocols for intervention thresholds, compensation adjustments, and algorithmic loss specifications.</p>
+        </div>
+        <div>
+          <span class="header-badge highlight">Enterprise Actuarial Governance</span>
+        </div>
+      </div>
+
+      <!-- Operational Rules Grid -->
+      <div class="rules-grid">
+        
+        <div class="rule-card">
+          <span class="rule-id">RULE-01</span>
+          <span class="rule-severity tier-critical">High Severity</span>
+          <div class="rule-title">Chronic Overtime Fatigue Surcharge</div>
+          <div class="rule-condition">Condition: OverTime == 'Yes'</div>
+          <div class="rule-explanation">
+            Overtime status is the single most dominant non-linear risk driver in the benchmark dataset. Mandatory workload rebalancing or compensatory time-off must be deployed before considering financial retention bonuses.
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <span class="rule-id">RULE-02</span>
+          <span class="rule-severity tier-critical">Critical Severity</span>
+          <div class="rule-title">Compounding Dissatisfaction & Undercompensation Multiplier</div>
+          <div class="rule-condition">Condition: JobSatisfaction &le; 2 AND MonthlyIncome &lt; ₹2.9L ($3,500)</div>
+          <div class="rule-explanation">
+            Employees exhibiting low satisfaction combined with below-median compensation trigger exponential flight risk (52.3% empirical attrition). Emergency compensation market adjustment and managerial realignment required.
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <span class="rule-id">RULE-03</span>
+          <span class="rule-severity tier-medium">Medium Severity</span>
+          <div class="rule-title">Early-Career Tenured Tipping Point</div>
+          <div class="rule-condition">Condition: Age &lt; 30 AND YearsAtCompany &le; 2</div>
+          <div class="rule-explanation">
+            Junior professionals with under two years tenure have high external market liquidity. Proactive bi-annual career roadmapping and mentorship pairings mitigate flight impulses.
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <span class="rule-id">RULE-04</span>
+          <span class="rule-severity tier-low">Protective Factor</span>
+          <div class="rule-title">Leadership & Equity Retention Anchor</div>
+          <div class="rule-condition">Condition: StockOptionLevel &ge; 2 AND TotalWorkingYears &gt; 10</div>
+          <div class="rule-explanation">
+            High equity participation coupled with senior tenure exhibits strong negative risk elasticity (-18.4% attrition propensity). Standard bi-annual equity refresh schedule suffices.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mathematical Loss Specifications -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span>📐</span> Actuarial Mathematics & Loss Function Specification</div>
+          <span style="font-size: 11px; color: var(--text-muted);">Formal Algorithmic Formulations</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="math-spec-card">
+            <div class="math-title"><span>1.</span> Gradient Boosting Classifier Deviance Loss</div>
+            <div class="math-formula-box">
+              L(y, F(x)) = - \sum_{i=1}^{N} [y_i \ln(p(x_i)) + (1 - y_i) \ln(1 - p(x_i))], \quad \text{where } p(x) = \frac{1}{1 + e^{-F(x)}}
+            </div>
+            <div class="math-desc">
+              Sequential additive tree boosting fits decision trees to the negative gradient of the binomial log-likelihood (pseudo-residuals). A shrinkage learning rate &eta; = 0.07 and subsampling ratio of 0.85 prevent overfitting on imbalanced employee data.
+            </div>
+          </div>
+
+          <div class="math-spec-card">
+            <div class="math-title"><span>2.</span> Random Forest Gini Impurity & Bagging Formulation</div>
+            <div class="math-formula-box">
+              I_G(t) = 1 - \sum_{i=1}^{C} p(i|t)^2 = 1 - (p_{\text{exit}}^2 + p_{\text{retain}}^2)
+            </div>
+            <div class="math-desc">
+              Bootstrap aggregation (bagging) builds 160 decorrelated decision trees sampled with replacement. Feature sub-sampling at each split (&radic;M) mitigates single-feature dominance and yields reliable out-of-bag error estimates.
+            </div>
+          </div>
+
+          <div class="math-spec-card">
+            <div class="math-title"><span>3.</span> Multi-Layer Perceptron (MLP) Neural Network Optimization</div>
+            <div class="math-formula-box">
+              L(W, b) = - 1/N &sum; [y_i log(y&#770;_i) + (1 - y_i)log(1 - y&#770;_i)] + (&alpha;/2) ||W||_2^2
+            </div>
+            <div class="math-desc">
+              Architecture consists of dense hidden layers (64 &rarr; 32 &rarr; 1) with ReLU non-linear activations f(z) = max(0, z). Optimization utilizes the Adam solver with momentum and L2 regularization penalty &alpha; = 0.01 to ensure numerical stability.
+            </div>
+          </div>
+
+          <div class="math-spec-card">
+            <div class="math-title"><span>4.</span> Support Vector Machine (SVM) Soft-Margin & RBF Kernel</div>
+            <div class="math-formula-box">
+              min 1/2 ||w||^2 + C &sum; &xi;_i  s.t.  y_i(w^T &phi;(x_i) + b) &ge; 1 - &xi;_i,   K(x, x') = exp(-&gamma; ||x - x'||^2)
+            </div>
+            <div class="math-desc">
+              Maximizes margin separation in infinite-dimensional Hilbert space via the Radial Basis Function (RBF) kernel trick. Regularization hyperparameter C = 1.8 penalizes classification slack variables &xi;_i.
+            </div>
+          </div>
+
+          <div class="math-spec-card">
+            <div class="math-title"><span>5.</span> K-Means Unsupervised Objective (WCSS Minimization)</div>
+            <div class="math-formula-box">
+              J = &sum;_{k=1}^K &sum;_{x &isin; S_k} ||x - &mu;_k||^2,   where &mu;_k = (1 / |S_k|) &sum;_{x &isin; S_k} x
+            </div>
+            <div class="math-desc">
+              Minimizes within-cluster sum of squares over normalized feature dimensions to discover intrinsic employee risk cohorts without utilizing supervision labels.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Survey Modal for Google Form Simulation & Manual Data Collection -->
+  <div id="survey_modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div style="font-weight: 800; font-size: 16px;">📋 Manual Employee Survey Data Collector</div>
+        <button id="btn_close_survey_modal" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+          This interactive module facilitates manual survey collection. Submit responses here to instantly test and append new records to the dataset preview!
+        </p>
+        
+        <form id="manual_survey_form">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+            <div>
+              <label class="form-label" style="display: block; margin-bottom: 4px;">Employee Age</label>
+              <input type="number" name="survey_age" class="form-select" min="18" max="65" value="28" required>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; margin-bottom: 4px;">Monthly Salary (USD)</label>
+              <input type="number" name="survey_income" class="form-select" min="1000" max="30000" value="3800" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+            <div>
+              <label class="form-label" style="display: block; margin-bottom: 4px;">Department</label>
+              <select name="survey_department" class="form-select">
+                <option value="Research & Development">Research & Development</option>
+                <option value="Sales">Sales</option>
+                <option value="Human Resources">Human Resources</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; margin-bottom: 4px;">Job Role</label>
+              <select name="survey_job_role" class="form-select">
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Research Scientist">Research Scientist</option>
+                <option value="Sales Executive">Sales Executive</option>
+                <option value="HR Specialist">HR Specialist</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+            <div>
+              <label class="form-label" style="display: block; margin-bottom: 4px;">Tenure at Company (Years)</label>
+              <input type="number" name="survey_tenure" class="form-select" min="0" max="40" value="2" required>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; margin-bottom: 4px;">Overtime Required?</label>
+              <select name="survey_overtime" class="form-select">
+                <option value="No">No Overtime</option>
+                <option value="Yes">Yes, Frequent Overtime</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <label class="form-label" style="display: block; margin-bottom: 4px;">Job Satisfaction (1 - Low to 4 - High)</label>
+            <select name="survey_satisfaction" class="form-select">
+              <option value="1">1 - Very Dissatisfied</option>
+              <option value="2">2 - Somewhat Dissatisfied</option>
+              <option value="3" selected>3 - Satisfied</option>
+              <option value="4">4 - Highly Satisfied</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary-action">
+            <span>➕ Submit Survey Response & Run Real-Time ML Inference</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div><strong>RetainIQ · Enterprise Predictive HR Intelligence & Workforce Analytics</strong></div>
+    <div style="margin-top: 4px;">Enterprise Employee Attrition Prediction & Workforce Risk Intelligence Platform</div>
+    <div style="margin-top: 4px; font-family: var(--font-mono); font-size: 11px;">
+      Models: Gradient Boosting · Random Forest · MLP Neural Network · Support Vector Machine · K-Means
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="static/js/model_data.js"></script>
+  <script src="static/js/app.js"></script>
+</body>
+</html>
